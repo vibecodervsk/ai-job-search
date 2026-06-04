@@ -1,14 +1,14 @@
 # Job Scraper
 
 **name:** job-scraper
-**description:** Scrapes Danish job sites for new positions matching your profile. Deduplicates across runs. Triggers on: job scrape, find jobs, search jobs, new jobs, job search, scrape jobs, /scrape
+**description:** Scrapes Indian job sites for new positions matching your profile. Deduplicates across runs. Triggers on: job scrape, find jobs, search jobs, new jobs, job search, scrape jobs, /scrape
 **allowed-tools:** Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, Agent, AskUserQuestion
 
 ---
 
 ## How It Works
 
-This skill searches multiple Danish job sites using targeted queries based on your profile, deduplicates against previously seen jobs and the application tracker, and presents new matches with a quick fit assessment.
+This skill searches multiple Indian job portals using targeted queries based on your profile, deduplicates against previously seen jobs and the application tracker, and presents new matches with a quick fit assessment.
 
 ## Invocation
 
@@ -39,8 +39,8 @@ Run **WebSearch** queries from `search-queries.md`. By default, run the top 3 pr
 If the user specified a focus area (e.g. "data science"), prioritize queries from that category.
 
 For each search:
-- Use `WebSearch` with site-specific queries (jobindex.dk, linkedin.com/jobs, karriere.dk, etc.)
-- Target your configured geographic area
+- Use `WebSearch` with site-specific queries (naukri.com, linkedin.com/jobs, wellfound.com, in.indeed.com, iimjobs.com, etc.)
+- Target your configured geographic area (Indian cities: Bangalore, Mumbai, Delhi, Hyderabad, Pune, Chennai, or Remote)
 - Look for postings from the last 14 days
 
 ### Step 2: Fetch & Parse

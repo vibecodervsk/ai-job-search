@@ -8,7 +8,7 @@ An AI-powered job application framework built on [Claude Code](https://claude.co
 
 ## What this is
 
-A structured workflow that turns Claude Code into a full-stack job application assistant. The core workflow (self-profiling, fit evaluation, and the drafter-reviewer application pipeline) is **language- and country-agnostic**. The job portal search skills are built for the Danish market (Jobindex, Jobnet, Akademikernes Jobbank, etc.), but the pattern is designed to be swapped for your local job boards.
+A structured workflow that turns Claude Code into a full-stack job application assistant. The core workflow (self-profiling, fit evaluation, and the drafter-reviewer application pipeline) is **language- and country-agnostic**. The job portal search skills are built for the **Indian market** (Naukri, LinkedIn India, Indeed India, Wellfound, IIM Jobs), but the pattern is designed to be swapped for any local job boards.
 
 ```
 /setup          /scrape              /apply <url>
@@ -32,7 +32,7 @@ The framework encodes career guidance best practices, including structured evalu
 
 - [Claude Code](https://claude.com/claude-code) (CLI)
 - Python 3.10+
-- [Bun](https://bun.sh) (for Danish job search CLI tools)
+- Python 3.10+ packages: `pip install requests beautifulsoup4 lxml` (for Indian job search CLI tools)
 - LaTeX distribution with `lualatex` and `xelatex`: [TeX Live](https://tug.org/texlive/) or [MiKTeX](https://miktex.org/). The CV compiles with `lualatex` (pdflatex often fails on modern MiKTeX installs with `fontawesome5` font-expansion errors); the cover letter compiles with `xelatex` because `cover.cls` requires `fontspec`.
 
 ## Quick start
@@ -47,11 +47,10 @@ cd ai-job-search
 ### 2. Install job search tools
 
 ```bash
-cd .agents/skills/jobbank-search/cli && bun install && cd ../../../..
-cd .agents/skills/jobdanmark-search/cli && bun install && cd ../../../..
-cd .agents/skills/jobindex-search/cli && bun install && cd ../../../..
-cd .agents/skills/jobnet-search/cli && bun install && cd ../../../..
+pip install requests beautifulsoup4 lxml
 ```
+
+This one command covers all five Indian job board CLIs (Naukri, LinkedIn, Indeed, Wellfound, IIM Jobs).
 
 ### 3. Set up your profile
 
@@ -74,7 +73,7 @@ This searches multiple job portals for positions matching your profile, deduplic
 ### 5. Apply to a job
 
 ```bash
-/apply https://jobindex.dk/job/1234567
+/apply https://www.naukri.com/job-listings-...
 ```
 
 If the URL can't be fetched (some job portals block automated access), you can paste the job description directly instead:
@@ -118,11 +117,12 @@ ai-job-search/
 │   │   ├── job-scraper/               # Job search orchestration
 │   │   └── upskill/                   # /upskill skill gap analysis and learning plan
 │   └── settings.local.json            # Claude Code permissions
-├── .agents/skills/                    # Job portal CLI tools (Denmark)
-│   ├── jobbank-search/                # Akademikernes Jobbank
-│   ├── jobdanmark-search/             # Jobdanmark.dk
-│   ├── jobindex-search/               # Jobindex.dk
-│   └── jobnet-search/                 # Jobnet.dk (government portal)
+├── .agents/skills/                    # Job portal CLI tools (India)
+│   ├── naukri-search/                 # Naukri.com (largest Indian job board)
+│   ├── linkedin-search/               # LinkedIn Jobs India (guest API)
+│   ├── indeed-search/                 # Indeed India (in.indeed.com)
+│   ├── wellfound-search/              # Wellfound / AngelList Talent (startups)
+│   └── iimjobs-search/               # IIM Jobs (senior & management roles)
 ├── cv/
 │   └── main_example.tex               # moderncv LaTeX template
 ├── cover_letters/
@@ -198,7 +198,7 @@ The CV uses [moderncv](https://ctan.org/pkg/moderncv) (banking style). The cover
 
 ### Job search tools
 
-The four CLI tools in `.agents/skills/` are specific to the **Danish job market** (Jobbank, Jobdanmark, Jobindex, Jobnet). They demonstrate the pattern for building job portal integrations. If you're in a different country, you can build equivalent tools for your local job portals using the same structure.
+The five CLI tools in `.agents/skills/` target the **Indian job market** (Naukri, LinkedIn India, Indeed India, Wellfound, IIM Jobs). They demonstrate the pattern for building job portal integrations. Each is a standalone Python script — add more by following the same structure with a `SKILL.md` and a `cli/cli.py`.
 
 ### Salary benchmarking
 
@@ -237,7 +237,8 @@ To get the most from this, invest time during `/setup` in describing not just yo
 
 ## Acknowledgements
 
-- [Mikkel Krogholm](https://github.com/mikkelkrogsholm) ([skills repo](https://github.com/mikkelkrogsholm/skills)) for the job search CLI skills
+- [vibecodervsk](https://github.com/vibecodervsk) for the Indian job board CLI skills (Naukri, LinkedIn, Indeed, Wellfound, IIM Jobs)
+- Original Danish job board skills pattern by [Mikkel Krogholm](https://github.com/mikkelkrogsholm) ([skills repo](https://github.com/mikkelkrogsholm/skills))
 - Built with [Claude Code](https://claude.com/claude-code) by [Anthropic](https://anthropic.com)
 
 ## License
